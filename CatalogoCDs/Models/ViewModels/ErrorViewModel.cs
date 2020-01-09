@@ -1,6 +1,6 @@
 using System;
 
-namespace CatalogoCDs.Models
+namespace CatalogoCDs.Models.ViewModels
 {
     public class ErrorViewModel
     {
