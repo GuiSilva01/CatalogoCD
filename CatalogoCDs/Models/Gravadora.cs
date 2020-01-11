@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -9,7 +10,7 @@ namespace CatalogoCDs.Models
     {
         public int Id { get; set; }
 
-
+        [Display(Name = "Gravadora")]
         public string NomeGravadora { get; set; }
 
 

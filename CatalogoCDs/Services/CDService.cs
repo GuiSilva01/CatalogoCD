@@ -22,7 +22,7 @@ namespace CatalogoCDs.Services
         //Metodo que busca todos os CDs no banco ordenado por Faixa de Preco
         public List<CD> FindAll()
         {
-            return _context.CD.Include(obj => obj.Musica).Include(obj => obj.FaixadePreco).Include(obj => obj.Gravadora).OrderBy(x => x.FaixadePreco.PrecoFinal).ToList();
+            return _context.CD.Include(obj => obj.Musica).Include(obj => obj.FaixadePreco).Include(obj => obj.Gravadora).OrderBy(x => x.FaixadePreco).ToList();
         }
 
         //Metodo para inserir um CD no banco
