@@ -1,4 +1,4 @@
-﻿@model CatalogoCDs.Models.CD
+﻿@model CatalogoCDs.Models.ViewModels.CDFormViewModel
 
 @{
     ViewData["Title"] = "Cadastro de CD's";
@@ -13,15 +13,31 @@
     <div class="col-4">
         <form asp-action="Criar">
             <div class="form-group">
-                <label asp-for="NomeCD" class="control-label"></label>
-                <input asp-for="NomeCD" class="form-control" />
+                <label asp-for="CD.NomeCD" class="control-label"></label>
+                <input asp-for="CD.NomeCD" class="form-control" />
             </div>
             <div class="form-group">
-                <label asp-for="DtLancamento" class="control-label"></label>
-                <input asp-for="DtLancamento" class="form-control" />
-            </div>  
+                <label asp-for="CD.DtLancamento" class="control-label"></label>
+                <input asp-for="CD.DtLancamento" class="form-control" />
+            </div>
             <div class="form-group">
-                <input type="submit"value="Criar" class="btn btn-danger" />   
+                <label asp-for="CD.GravadoraId" class="control-label"></label>
+                <select asp-for="CD.GravadoraId" asp-items="@(new SelectList(Model.Gravadoras,"Id","NomeGravadora"))" class="form-control"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="CD.FaixadePrecoId" class="control-label"></label>
+                <select asp-for="CD.FaixadePrecoId" asp-items="@(new SelectList(Model.FaixadePrecos,"Id","NomeFaixa"))" class="form-control"></select>
+
+
+            </div>
+            <div class="form-group">
+                <label asp-for="CD.MusicaId" class="control-label"></label>
+                <select asp-for="CD.MusicaId" asp-items="@(new SelectList(Model.Musicas,"Id","Faixa"))" class="form-control"></select>
+
+
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Criar" class="btn btn-danger" />
             </div>
         </form>
     </div>

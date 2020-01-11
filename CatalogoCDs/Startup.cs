@@ -48,7 +48,10 @@ namespace CatalogoCDs
 
             services.AddScoped<SeedingService>();
             services.AddScoped<CDService>();
-            
+            services.AddScoped<FaixadePrecoService>();
+            services.AddScoped<GravadoraService>();
+            services.AddScoped<MusicaService>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

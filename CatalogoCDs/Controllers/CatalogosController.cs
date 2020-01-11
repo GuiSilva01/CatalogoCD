@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using CatalogoCDs.Models;
+using CatalogoCDs.Models.ViewModels;
 using CatalogoCDs.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -12,10 +13,16 @@ namespace CatalogosCDs.Controllers
     {
 
         private readonly CDService _cdService;
-       
-        public CatalogosController(CDService cDService)
+        private readonly FaixadePrecoService _faixaService;
+        private readonly GravadoraService _gravadoraService;
+        private readonly MusicaService _musicaService;
+
+        public CatalogosController(CDService cDService, FaixadePrecoService faixadePreco, GravadoraService gravadoraService, MusicaService musicaService)
         {
-            _cdService = cDService;       
+            _cdService = cDService;
+            _faixaService = faixadePreco;
+            _gravadoraService = gravadoraService;
+            _musicaService = musicaService;
         }
         public IActionResult Index()
         {     
@@ -26,7 +33,11 @@ namespace CatalogosCDs.Controllers
         //Metodo Get para chamar a view do formulario de criar CD
         public IActionResult Criar()
         {
-            return View();
+            var gravadora = _gravadoraService.FindAll();
+            var faixadePreco = _faixaService.FindAll();
+            var musica = _musicaService.FindAll();
+            var viewModel = new CDFormViewModel { Gravadoras = gravadora, FaixadePrecos = faixadePreco, Musicas = musica, };
+            return View(viewModel);
         }
 
         //Metodo POST para inserir o novo cd
