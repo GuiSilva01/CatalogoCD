@@ -20,42 +20,43 @@ namespace CatalogoCDs.Services
         }
 
         //Metodo que busca todos os CDs no banco ordenado por Faixa de Preco
-        public List<CD> FindAll()
+        public async Task<List<CD>> FindAllAsync()
         {
-            return _context.CD.Include(obj => obj.Musica).Include(obj => obj.FaixadePreco).Include(obj => obj.Gravadora).OrderBy(x => x.FaixadePreco).ToList();
+            return await _context.CD.Include(obj => obj.Musica).Include(obj => obj.FaixadePreco).Include(obj => obj.Gravadora).OrderBy(x => x.FaixadePreco).ToListAsync();
         }
 
         //Metodo para inserir um CD no banco
-        public void Insert(CD obj)
+        public async Task InsertAsync(CD obj)
         {
             _context.Add(obj);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
 
         //Metodo para buscar por Id
-        public CD FindById(int id)
+        public async Task<CD> FindByIdAsync(int id)
         {
-            return _context.CD.FirstOrDefault(obj => obj.Id == id);
+            return await _context.CD.FirstOrDefaultAsync(obj => obj.Id == id);
         }
 
         //Metodo para Remover o obj do banco de dados por Id
-        public void Remove(int id)
+        public async Task RemoveAsync(int id)
         {
-            var obj = _context.CD.Find(id);
+            var obj = await _context.CD.FindAsync(id);
             _context.CD.Remove(obj);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
 
         //Metodo Update para editar um registro no banco
-        public void Update(CD obj)
+        public async Task UpdateAsync(CD obj)
         {
-            if(!_context.CD.Any(x => x.Id == obj.Id))
+            bool hasAny = await _context.CD.AnyAsync(x => x.Id == obj.Id);
+            if (!hasAny)
             {
                 throw new NotFoundException("O Id nao existe");
             }
             try { 
             _context.Update(obj);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
             }
             //Tratamento da exception do nivel de acessos a dados para o nivel de servico
             catch(DbUpdateConcurrencyException e)

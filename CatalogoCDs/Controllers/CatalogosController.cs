@@ -25,18 +25,18 @@ namespace CatalogosCDs.Controllers
             _gravadoraService = gravadoraService;
             _musicaService = musicaService;
         }
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {     
-            var list = _cdService.FindAll();
+            var list = await _cdService.FindAllAsync();
             return View(list);
         }
 
         //Metodo Get para chamar a view do formulario de criar CD (Criar)
-        public IActionResult Criar()
+        public async Task<IActionResult> Criar()
         {
-            var gravadora = _gravadoraService.FindAll();
-            var faixadePreco = _faixaService.FindAll();
-            var musica = _musicaService.FindAll();
+            var gravadora = await _gravadoraService.FindAllAsync();
+            var faixadePreco = await _faixaService.FindAllAsync();
+            var musica = await _musicaService.FindAllAsync();
             var viewModel = new CDFormViewModel { Gravadoras = gravadora, FaixadePrecos = faixadePreco, Musicas = musica, };
             return View(viewModel);
         }
@@ -44,20 +44,20 @@ namespace CatalogosCDs.Controllers
         //Metodo POST para inserir o novo cd (Criar)
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Criar(CD cd)
+        public async Task<IActionResult> Criar(CD cd)
         {
-            _cdService.Insert(cd);
+            await _cdService.InsertAsync(cd);
             return RedirectToAction(nameof(Index));
         }
 
-        public IActionResult Deletar(int? id)
+        public async Task<IActionResult> Deletar(int? id)
         {
             if(id == null)
             {
                 return NotFound();
             }
 
-            var obj = _cdService.FindById(id.Value);
+            var obj = await _cdService.FindByIdAsync(id.Value);
             if (obj == null)
             {
                 return NotFound();
@@ -68,42 +68,42 @@ namespace CatalogosCDs.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Deletar(int id)
+        public async Task<IActionResult> Deletar(int id)
         {
-            _cdService.Remove(id);
+            await _cdService.RemoveAsync(id);
             return RedirectToAction(nameof(Index));
         }
 
-        public IActionResult Editar(int? id)
+        public async Task<IActionResult> Editar(int? id)
         {
             if(id == null)
             {
                 return NotFound();
             }
 
-            var obj = _cdService.FindById(id.Value);
+            var obj = await _cdService.FindByIdAsync(id.Value);
             if(obj == null)
             {
                 return NotFound();
             }
 
-            List<Gravadora> gravadoras = _gravadoraService.FindAll();
-            List<FaixadePreco> faixadePrecos = _faixaService.FindAll();
-            List<Musica> musicas = _musicaService.FindAll();
+            List<Gravadora> gravadoras = await _gravadoraService.FindAllAsync();
+            List<FaixadePreco> faixadePrecos = await _faixaService.FindAllAsync();
+            List<Musica> musicas = await _musicaService.FindAllAsync();
             CDFormViewModel viewModel = new CDFormViewModel { CD = obj, Gravadoras = gravadoras, FaixadePrecos = faixadePrecos, Musicas = musicas };
             return View(viewModel);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Editar(int id, CD cd)
+        public async Task<IActionResult> Editar(int id, CD cd)
         {
             if(id != cd.Id)
             {
                 return BadRequest();
             }
             try { 
-            _cdService.Update(cd);
+            await _cdService.UpdateAsync(cd);
             return RedirectToAction(nameof(Index));
             }
             catch (NotFoundException e)

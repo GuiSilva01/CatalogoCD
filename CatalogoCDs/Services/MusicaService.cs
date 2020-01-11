@@ -1,5 +1,6 @@
 ﻿using CatalogoCDs.Data;
 using CatalogoCDs.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,9 +17,9 @@ namespace CatalogoCDs.Services
             _context = context;
         }
 
-        public List<Musica> FindAll()
+        public async Task<List<Musica>> FindAllAsync()
         {
-            return _context.Musica.OrderBy(x => x.Id).ToList();
+            return await _context.Musica.OrderBy(x => x.Id).ToListAsync();
         }
     }
 }
