@@ -1,0 +1,61 @@
+﻿@model IEnumerable<CatalogoCDs.Models.CD>
+
+
+@{
+    ViewData["Title"] = "Catalogo de CD's";
+}
+
+
+
+<h2>@ViewData["Title"]</h2>
+
+<div style="height: 600px; overflow: auto;">
+    <table class="table table-striped table-hover">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Musica.Artista)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.NomeCD)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Musica.Faixa)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.DtLancamento)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.FaixadePreco.NomeFaixa)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Musica.Artista)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.NomeCD)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Musica.Faixa)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DtLancamento)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FaixadePreco.NomeFaixa)
+                    </td>
+                    <td>
+                        <a asp-action="Detalhes" asp-route-id="@item.Id">Detalhes</a>
+                        <a asp-action="Deletar" asp-route-id="@item.Id">Deletar</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

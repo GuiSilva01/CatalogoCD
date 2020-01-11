@@ -13,6 +13,7 @@ using Microsoft.EntityFrameworkCore;
 using CatalogoCDs.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using CatalogoCDs.Services;
 
 namespace CatalogoCDs
 {
@@ -46,6 +47,8 @@ namespace CatalogoCDs
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
             services.AddScoped<SeedingService>();
+            services.AddScoped<CDService>();
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
