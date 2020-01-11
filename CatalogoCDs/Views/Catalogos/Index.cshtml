@@ -30,6 +30,9 @@
                     @Html.DisplayNameFor(model => model.DtLancamento)
                 </th>
                 <th>
+                    @Html.DisplayNameFor(model => model.Gravadora.NomeGravadora)
+                </th>
+                <th>
                     @Html.DisplayNameFor(model => model.FaixadePreco.NomeFaixa)
                 </th>
                 <th></th>
@@ -38,27 +41,30 @@
         <tbody>
             @foreach (var item in Model)
             {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Musica.Artista)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.NomeCD)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Musica.Faixa)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.DtLancamento)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.FaixadePreco.NomeFaixa)
-                    </td>
-                    <td>
-                        <a asp-action="Detalhes" asp-route-id="@item.Id">Detalhes</a>
-                        <a asp-action="Deletar" asp-route-id="@item.Id">Deletar</a>
-                    </td>
-                </tr>
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Musica.Artista)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NomeCD)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Musica.Faixa)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DtLancamento)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Gravadora.NomeGravadora)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FaixadePreco.NomeFaixa)
+                </td>
+                <td>
+                    <a asp-action="Editar" asp-route-id="@item.Id">Editar</a>
+                    <a asp-action="Deletar" asp-route-id="@item.Id">Deletar</a>
+                </td>
+            </tr>
             }
         </tbody>
     </table>

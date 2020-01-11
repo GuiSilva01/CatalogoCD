@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using CatalogoCDs.Models;
 using CatalogoCDs.Models.ViewModels;
 using CatalogoCDs.Services;
+using CatalogoCDs.Services.Exceptions;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CatalogosCDs.Controllers
@@ -71,6 +72,49 @@ namespace CatalogosCDs.Controllers
         {
             _cdService.Remove(id);
             return RedirectToAction(nameof(Index));
+        }
+
+        public IActionResult Editar(int? id)
+        {
+            if(id == null)
+            {
+                return NotFound();
+            }
+
+            var obj = _cdService.FindById(id.Value);
+            if(obj == null)
+            {
+                return NotFound();
+            }
+
+            List<Gravadora> gravadoras = _gravadoraService.FindAll();
+            List<FaixadePreco> faixadePrecos = _faixaService.FindAll();
+            List<Musica> musicas = _musicaService.FindAll();
+            CDFormViewModel viewModel = new CDFormViewModel { CD = obj, Gravadoras = gravadoras, FaixadePrecos = faixadePrecos, Musicas = musicas };
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Editar(int id, CD cd)
+        {
+            if(id != cd.Id)
+            {
+                return BadRequest();
+            }
+            try { 
+            _cdService.Update(cd);
+            return RedirectToAction(nameof(Index));
+            }
+            catch (NotFoundException e)
+            {
+                return NotFound();
+            }
+            catch (DbConcurrencyException)
+            {
+                return BadRequest();
+            }
+
         }
     }
 }

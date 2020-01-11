@@ -1,0 +1,45 @@
+﻿@model CatalogoCDs.Models.ViewModels.CDFormViewModel
+
+@{
+    ViewData["Title"] = "Editar CD's";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<h4>Cadastro CD's</h4>
+<hr />
+
+<div class="row">
+    <div class="col-4">
+        <form asp-action="Editar">
+            <input type="hidden" asp-for="CD.Id" />
+            <div class="form-group">
+                <label asp-for="CD.NomeCD" class="control-label"></label>
+                <input asp-for="CD.NomeCD" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="CD.DtLancamento" class="control-label"></label>
+                <input asp-for="CD.DtLancamento" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="CD.GravadoraId" class="control-label"></label>
+                <select asp-for="CD.GravadoraId" asp-items="@(new SelectList(Model.Gravadoras,"Id","NomeGravadora"))" class="form-control"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="CD.FaixadePrecoId" class="control-label"></label>
+                <select asp-for="CD.FaixadePrecoId" asp-items="@(new SelectList(Model.FaixadePrecos,"Id","NomeFaixa"))" class="form-control"></select>
+
+
+            </div>
+            <div class="form-group">
+                <label asp-for="CD.MusicaId" class="control-label"></label>
+                <select asp-for="CD.MusicaId" asp-items="@(new SelectList(Model.Musicas,"Id","Faixa"))" class="form-control"></select>
+
+
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Salvar" class="btn btn-danger" />
+            </div>
+        </form>
+    </div>
+</div>
