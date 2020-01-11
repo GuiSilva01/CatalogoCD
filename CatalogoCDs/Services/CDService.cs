@@ -31,5 +31,18 @@ namespace CatalogoCDs.Services
             _context.SaveChanges();
         }
 
+        //Metodo para buscar por Id
+        public CD FindById(int id)
+        {
+            return _context.CD.FirstOrDefault(obj => obj.Id == id);
+        }
+
+        //Metodo para Remover o obj do banco de dados por Id
+        public void Remove(int id)
+        {
+            var obj = _context.CD.Find(id);
+            _context.CD.Remove(obj);
+            _context.SaveChanges();
+        }
     }
 }

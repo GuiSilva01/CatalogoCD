@@ -30,7 +30,7 @@ namespace CatalogosCDs.Controllers
             return View(list);
         }
 
-        //Metodo Get para chamar a view do formulario de criar CD
+        //Metodo Get para chamar a view do formulario de criar CD (Criar)
         public IActionResult Criar()
         {
             var gravadora = _gravadoraService.FindAll();
@@ -40,12 +40,36 @@ namespace CatalogosCDs.Controllers
             return View(viewModel);
         }
 
-        //Metodo POST para inserir o novo cd
+        //Metodo POST para inserir o novo cd (Criar)
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Criar(CD cd)
         {
             _cdService.Insert(cd);
+            return RedirectToAction(nameof(Index));
+        }
+
+        public IActionResult Deletar(int? id)
+        {
+            if(id == null)
+            {
+                return NotFound();
+            }
+
+            var obj = _cdService.FindById(id.Value);
+            if (obj == null)
+            {
+                return NotFound();
+            }
+
+            return View(obj);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Deletar(int id)
+        {
+            _cdService.Remove(id);
             return RedirectToAction(nameof(Index));
         }
     }
