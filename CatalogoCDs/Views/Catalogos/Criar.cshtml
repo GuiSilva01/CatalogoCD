@@ -1,0 +1,28 @@
+﻿@model CatalogoCDs.Models.CD
+
+@{
+    ViewData["Title"] = "Cadastro de CD's";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<h4>Cadastro CD's</h4>
+<hr />
+
+<div class="row">
+    <div class="col-4">
+        <form asp-action="Criar">
+            <div class="form-group">
+                <label asp-for="NomeCD" class="control-label"></label>
+                <input asp-for="NomeCD" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="DtLancamento" class="control-label"></label>
+                <input asp-for="DtLancamento" class="form-control" />
+            </div>  
+            <div class="form-group">
+                <input type="submit"value="Criar" class="btn btn-danger" />   
+            </div>
+        </form>
+    </div>
+</div>

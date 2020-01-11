@@ -24,5 +24,12 @@ namespace CatalogoCDs.Services
             return _context.CD.Include(obj => obj.Musica).Include(obj => obj.FaixadePreco).OrderBy(x => x.FaixadePreco).ToList();
         }
 
+        //Metodo para inserir um CD no banco
+        public void Insert(CD obj)
+        {
+            _context.Add(obj);
+            _context.SaveChanges();
+        }
+
     }
 }

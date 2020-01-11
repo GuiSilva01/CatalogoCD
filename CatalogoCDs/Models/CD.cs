@@ -17,9 +17,15 @@ namespace CatalogoCDs.Models
 
         public Gravadora Gravadora { get; set; }
 
+        public int GravadoraId { get; set; }
+
         public FaixadePreco FaixadePreco { get; set; }
 
+        public int FaixadePrecoId { get; set; }
+
         public Musica Musica { get; set; }
+
+        public int MusicaId { get; set; }
 
         public CD()
         {
